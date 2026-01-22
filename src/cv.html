@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Mon CV - Alexandre Triniol--Crozatier</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../images/ordinateur.png" type="image/png">
+    <link rel="stylesheet" href="../style/cv.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Manrope:wght@400;600&family=Poiret+One&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="burger-menu">
+                <div class="burger-icon" id="burger-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <div class="nav-links" id="nav-links">
+                <a href="accueil.html" class="active" title="Accueil">Accueil</a>
+                <a href="aPropos.html" title="À propos de moi">À propos de moi</a>
+                <a href="projets.html" title="Mes projets">Mes projets</a>
+                <a href="contact.html" title="Me contacter">Me contacter</a>
+                <a href="cv.html" title="Mon CV">Mon CV</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="cv-card">
+            <div class="cv-icon">📄</div>
+            <h3>Mon CV </h3>
+            <p>Dernière mise à jour : Novembre 2025</p>
+            <a href="../doc/cv-alternance.pdf" class="download-btn" target="_blank">Télécharger mon CV</a>
+        </div>
+    </main>
+
+    <script>
+        // Script optimisé pour la page CV
+document.addEventListener('DOMContentLoaded', function() {
+    // Animation de chargement de la page
+    setTimeout(() => {
+        document.body.classList.add('loaded');
+    }, 300);
+
+    // Gestion du menu burger
+    const burgerIcon = document.getElementById('burger-icon');
+    const navLinks = document.getElementById('nav-links');
+
+    if (burgerIcon && navLinks) {
+        burgerIcon.addEventListener('click', function(e) {
+            e.stopPropagation();
+            this.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            
+            // Empêcher le scroll du body quand le menu est ouvert
+            document.body.style.overflow = this.classList.contains('active') ? 'hidden' : '';
+        });
+
+        // Fermer le menu quand on clique en dehors
+        document.addEventListener('click', function(e) {
+            if (navLinks.classList.contains('active') && 
+                !navLinks.contains(e.target) && 
+                !burgerIcon.contains(e.target)) {
+                burgerIcon.classList.remove('active');
+                navLinks.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Fermer le menu lors du clic sur un lien
+        const navLinksElements = navLinks.querySelectorAll('a');
+        navLinksElements.forEach(link => {
+            link.addEventListener('click', function() {
+                burgerIcon.classList.remove('active');
+                navLinks.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Fermer le menu sur la touche Échap
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+                burgerIcon.classList.remove('active');
+                navLinks.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    }
+
+    // Animation d'apparition progressive des liens du menu (mobile)
+    if (window.innerWidth <= 768) {
+        const links = document.querySelectorAll('.nav-links a');
+        links.forEach((link, index) => {
+            link.style.setProperty('--i', index);
+        });
+    }
+
+    // Gestion du redimensionnement de la fenêtre
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            // Réinitialiser le menu burger si on passe en desktop
+            if (window.innerWidth > 768) {
+                burgerIcon?.classList.remove('active');
+                navLinks?.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }, 250);
+    });
+
+    // Amélioration de l'accessibilité
+    if (burgerIcon) {
+        burgerIcon.setAttribute('role', 'button');
+        burgerIcon.setAttribute('aria-label', 'Menu de navigation');
+        burgerIcon.setAttribute('aria-expanded', 'false');
+        
+        // Mise à jour de l'attribut aria-expanded
+        const observer = new MutationObserver(() => {
+            const isActive = burgerIcon.classList.contains('active');
+            burgerIcon.setAttribute('aria-expanded', isActive);
+        });
+        
+        observer.observe(burgerIcon, { attributes: true, attributeFilter: ['class'] });
+    }
+});
+    </script>
+
+    <footer>
+        <p>© Mon Portfolio - 2025 | Développé par Alexandre Triniol--Crozatier</p>
+    </footer>
+</body>
+
+</html>

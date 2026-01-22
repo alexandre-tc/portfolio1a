@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>À propos de moi - Alexandre Triniol--Crozatier</title>
+    <link rel="icon" href="../images/ordinateur.png" type="image/png">
+    <link rel="stylesheet" href="../style/aPropos.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Manrope:wght@400;600&family=Poiret+One&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="burger-menu">
+                <div class="burger-icon" id="burger-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <div class="nav-links" id="nav-links">
+                <a href="accueil.html" class="active" title="Accueil">Accueil</a>
+                <a href="aPropos.html" title="À propos de moi">À propos de moi</a>
+                <a href="projets.html" title="Mes projets">Mes projets</a>
+                <a href="contact.html" title="Me contacter">Me contacter</a>
+                <a href="cv.html" title="Mon CV">Mon CV</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Qui suis-je ?</h1>
+            <p class="subtitle">Alexandre Triniol--Crozatier, étudiant en BUT Informatique.</p>
+        </section>
+
+        <section class="story-section">
+            <div class="text-content1">
+                <h2>À propos de moi</h2>
+                <p>Je m’appelle Alexandre Triniol—Crozatier et je suis étudiant en BUT informatique
+                    à l’IUT de Clermont-Ferrand. Mon domaine de prédilection est le développement web.
+                    En dehors de mes études, j’aime lire et faire du sport, mais aussi écouter
+                    et composer de la musique grâce à différents logiciels de création musicale.
+                    Le sport m’a donné l’occasion de m’ouvrir aux autres, tandis que la musique
+                    et la lecture me permettent de me détendre, mais m’ont surtout donné l’envie
+                    de me cultiver et de découvrir de nouvelles choses.
+                </p>
+            </div>
+            <div class="image-content1">
+                <img src="../images/photo-face.jpg" alt="Ma photo" class="reduced-image">
+            </div>
+        </section>
+
+        <section class="values-section">
+            <h2>Mes compétences</h2>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="icon">🔍</div>
+                    <h3>Sens du détail</h3>
+                    <span class="click-hint">Cliquez pour en savoir plus</span>
+                    <p>Je suis attentif à chaque détail pour garantir un rendu soigné et cohérent.</p>
+                </div>
+                <div class="value-card">
+                    <div class="icon">🤝</div>
+                    <h3>Travail en équipe</h3>
+                    <span class="click-hint">Cliquez pour en savoir plus</span>
+                    <p>Habitué aux projets en groupe, je communique facilement et
+                        je m’investis pour que chacun puisse donner le meilleur de lui-même.</p>
+                </div>
+                <div class="value-card">
+                    <div class="icon">🎨</div>
+                    <h3>Créativité</h3>
+                    <span class="click-hint">Cliquez pour en savoir plus</span>
+                    <p>J’aime imaginer des interfaces intuitives et inventer des solutions élégantes à des problèmes
+                        techniques.</p>
+                </div>
+            </div>
+
+            <h2>Mes passions</h2>
+            <div class="values-grid">
+                <div class="value-card passion-card" onclick="window.location.href='music.html'">
+                    <div class="icon">🎶</div>
+                    <h3>Musique</h3>
+                    <p>Passionné de musique, j'en écoute beaucoup et je compose mes propres morceaux.
+                        <br><i style="font-size: smaller;">Cliquez pour en savoir plus.</i>
+                    </p>
+                </div>
+                <div class="value-card passion-card" onclick="window.location.href='sport.html'">
+                    <div class="icon">🏋🏻‍♂️</div>
+                    <h3>Sport</h3>
+                    <p>Le sport fait partie de mon équilibre : il me permet de rester motivé, concentré et de toujours
+                        viser plus haut.
+                        <br><i style="font-size: smaller;">Cliquez pour en savoir plus.</i>
+                    </p>
+                </div>
+                <div class="value-card passion-card" onclick="window.location.href='lecture.html'">
+                    <div class="icon">📖</div>
+                    <h3>Lecture</h3>
+                    <p>La lecture m'est essentielle : elle me permet de décompresser tout en me cultivant.
+                        <br><i style="font-size: smaller;">Cliquez pour en savoir plus.</i>
+                    </p>
+                </div>
+            </div>
+
+            <div class="real-tech">
+                <h2>Mes projets</h2>
+                <div class="card-redirect" onclick="window.location.href='projets.html'">
+                    <h3>Consulter mes projets</h3>
+                    <p>Cliquez ici pour découvrir quelques unes de mes réalisation techniques.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // Script optimisé pour la page À propos
+        document.addEventListener('DOMContentLoaded', function () {
+            // Animation de chargement de la page
+            setTimeout(() => {
+                document.body.classList.add('loaded');
+            }, 300);
+
+            // ===============================================
+            // GESTION DU MENU BURGER
+            // ===============================================
+            const burgerIcon = document.getElementById('burger-icon');
+            const navLinks = document.getElementById('nav-links');
+
+            if (burgerIcon && navLinks) {
+                burgerIcon.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    this.classList.toggle('active');
+                    navLinks.classList.toggle('active');
+
+                    // Empêcher le scroll du body quand le menu est ouvert
+                    document.body.style.overflow = this.classList.contains('active') ? 'hidden' : '';
+                });
+
+                // Fermer le menu quand on clique en dehors
+                document.addEventListener('click', function (e) {
+                    if (navLinks.classList.contains('active') &&
+                        !navLinks.contains(e.target) &&
+                        !burgerIcon.contains(e.target)) {
+                        burgerIcon.classList.remove('active');
+                        navLinks.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                });
+
+                // Fermer le menu lors du clic sur un lien
+                const navLinksElements = navLinks.querySelectorAll('a');
+                navLinksElements.forEach(link => {
+                    link.addEventListener('click', function () {
+                        burgerIcon.classList.remove('active');
+                        navLinks.classList.remove('active');
+                        document.body.style.overflow = '';
+                    });
+                });
+
+                // Fermer le menu sur la touche Échap
+                document.addEventListener('keydown', function (e) {
+                    if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+                        burgerIcon.classList.remove('active');
+                        navLinks.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                });
+
+                // Amélioration de l'accessibilité
+                burgerIcon.setAttribute('role', 'button');
+                burgerIcon.setAttribute('aria-label', 'Menu de navigation');
+                burgerIcon.setAttribute('aria-expanded', 'false');
+
+                // Mise à jour de l'attribut aria-expanded
+                const observer = new MutationObserver(() => {
+                    const isActive = burgerIcon.classList.contains('active');
+                    burgerIcon.setAttribute('aria-expanded', isActive);
+                });
+
+                observer.observe(burgerIcon, { attributes: true, attributeFilter: ['class'] });
+            }
+
+            // Animation d'apparition progressive des liens du menu (mobile)
+            if (window.innerWidth <= 768) {
+                const links = document.querySelectorAll('.nav-links a');
+                links.forEach((link, index) => {
+                    link.style.setProperty('--i', index);
+                });
+            }
+
+            // ===============================================
+            // GESTION DES CARTES DE COMPÉTENCES
+            // ===============================================
+            const valueCards = document.querySelectorAll('.value-card:not(.passion-card)');
+
+            valueCards.forEach(card => {
+                card.addEventListener('click', function () {
+                    // Fermer toutes les autres cartes
+                    valueCards.forEach(c => {
+                        if (c !== card) {
+                            c.classList.remove('active');
+                        }
+                    });
+                    // Toggle la carte cliquée
+                    card.classList.toggle('active');
+                });
+            });
+
+            // ===============================================
+            // GESTION DU REDIMENSIONNEMENT
+            // ===============================================
+            let resizeTimer;
+            window.addEventListener('resize', function () {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    // Réinitialiser le menu burger si on passe en desktop
+                    if (window.innerWidth > 768) {
+                        burgerIcon?.classList.remove('active');
+                        navLinks?.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                }, 250);
+            });
+        });
+    </script>
+
+    <footer>
+        <p>© Mon portfolio - 2025 | Développé par Alexandre Triniol--Crozatier</p>
+    </footer>
+</body>
+
+</html>

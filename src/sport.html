@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ma passion pour le sport</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="../images/ordinateur.png" type="image/png">
+    <link rel="stylesheet" href="../style/sport.css">
+</head>
+
+<body>
+    <!-- Flèche retour -->
+    <a href="aPropos.html" class="back-arrow">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+
+    <main class="main-content">
+        <section class="timeline">
+            <h2 class="section-title">Mon parcours sportif</h2>
+            <div class="timeline-container">
+                <div class="timeline-line"></div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>2014 - 2021</h3>
+                        <p>Pratique du judo à un niveau compétitif.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>2022 - Présent</h3>
+                        <p>Développement de la musculation et entraînement en salle.</p>
+                        <div class="timeline-details">
+                            <p>Transition vers la musculation avec un focus sur le développement musculaire équilibré et
+                                l'amélioration des performances. Programme personnalisé 5 fois par semaine.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="programs">
+            <h2 class="section-title">Mes programmes d'entraînement</h2>
+            <div class="programs-grid">
+                <div class="program-card">
+                    <div class="program-icon">
+                        <i class="fas fa-dumbbell"></i>
+                    </div>
+                    <h3>Rituel Biceps</h3>
+                    <p>Mon programme favori pour sculpter des bras harmonieux.</p>
+                    <button class="more-btn" data-program="biceps">Découvrir</button>
+                </div>
+
+                <div class="program-card">
+                    <div class="program-icon">
+                        <i class="fas fa-spa"></i>
+                    </div>
+                    <h3>Dos en V</h3>
+                    <p>Ma routine pour un dos fort et esthétique.</p>
+                    <button class="more-btn" data-program="dos">Découvrir</button>
+                </div>
+
+                <div class="program-card">
+                    <div class="program-icon">
+                        <i class="fas fa-running"></i>
+                    </div>
+                    <h3>Fondations Jambes</h3>
+                    <p>Mon défi hebdomadaire pour des jambes puissantes.</p>
+                    <button class="more-btn" data-program="jambes">Découvrir</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modale pour les détails des programmes -->
+    <div class="modal-overlay" id="programModal">
+        <div class="modal-container" id="modalContainer">
+            <div class="modal-header">
+                <h3 id="modalTitle">Programme Biceps</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-content" id="modalContent">
+                <!-- Le contenu sera injecté ici par JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p> © Mon Portfolio - 2025 | Développé par Alexandre Triniol--Crozatier</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            setTimeout(function () {
+                document.body.classList.add('loaded');
+            }, 300);
+
+            // Animation de la timeline au scroll
+            const timelineItems = document.querySelectorAll('.timeline-item');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            timelineItems.forEach(item => {
+                observer.observe(item);
+            });
+
+            // Gestion de la modale pour les programmes
+            const modal = document.getElementById('programModal');
+            const modalContainer = document.getElementById('modalContainer');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalContent = document.getElementById('modalContent');
+            const moreBtns = document.querySelectorAll('.more-btn');
+            const closeBtn = document.querySelector('.modal-close');
+
+            // Données des programmes (personnalisées)
+            const programsData = {
+                biceps: {
+                    title: "Mon rituel biceps : force et définition",
+                    content: `
+                        <div class="program-details">
+                            <h4>Ma routine éprouvée</h4>
+                            <ul>
+                                <li><strong>Flexion des bras avec haltères</strong>: 4 séries de 10-12 reps<br>
+                                <em>J'adore commencer par cet exercice pour échauffer mes bras</em></li>
+                                <li><strong>Curl incliné</strong>: 3 séries de 12 reps<br>
+                                <em>Mon préféré pour cette sensation d'étirement intense</em></li>
+                                <li><strong>Curl marteau</strong>: 3 séries de 12 reps<br>
+                                <em>Idéal pour travailler le brachial antérieur</em></li>
+                                <li><strong>Curl concentré</strong>: 3 séries de 10 reps<br>
+                                <em>Je termine toujours par cette contraction maximale</em></li>
+                            </ul>
+                            <h4>Pourquoi ce programme ?</h4>
+                            <p>Après 3 ans d'expérience, j'ai créé cette routine qui allie technique et intensité. Ce qui me passionne ? Voir mes progrès au fil des semaines et cette sensation de brûlure qui annonce une bonne séance !</p>
+                            <h4>Mon conseil perso</h4>
+                            <p>Concentrez-vous sur la connexion esprit-muscle plutôt que sur la charge. La qualité prime sur la quantité.</p>
+                        </div>
+                    `
+                },
+                dos: {
+                    title: "Ma quête du dos en V",
+                    content: `
+                        <div class="program-details">
+                            <h4>Mon programme signature</h4>
+                            <ul>
+                                <li><strong>Tractions</strong>: 4 séries jusqu'à échec<br>
+                                <em>Je commence toujours par cet exercice roi</em></li>
+                                <li><strong>Rowing barre</strong>: 4 séries de 8-10 reps<br>
+                                <em>Mon mouvement favori pour l'épaisseur</em></li>
+                                <li><strong>Tirage poitrine</strong>: 3 séries de 12 reps<br>
+                                <em>Parfait pour la largeur du dos</em></li>
+                                <li><strong>Shrugs avec haltères</strong>: 3 séries de 15 reps<br>
+                                <em>Je termine par les trapèzes pour compléter le travail</em></li>
+                            </ul>
+                            <h4>Pourquoi je l'adore ?</h4>
+                            <p>Développer son dos demande patience et rigueur - deux qualités que le judo m'a appris. Rien ne me motive plus que de sentir mes muscles dorsaux se contracter en harmonie après une bonne série !</p>
+                            <h4>Mon astuce</h4>
+                            <p>Visualisez chaque contraction et maintenez une posture parfaite. Un dos fort améliore toutes vos performances sportives !</p>
+                        </div>
+                    `
+                },
+                jambes: {
+                    title: "Défi jambes : ma séance phare",
+                    content: `
+                        <div class="program-details">
+                            <h4>Mon rituel intense</h4>
+                            <ul>
+                                <li><strong>Squat</strong>: 5 séries de 6-8 reps<br>
+                                <em>La base de mon entraînement, j'adore cet exercice complet</em></li>
+                                <li><strong>Presse à cuisses</strong>: 4 séries de 10 reps<br>
+                                <em>Idéal pour compléter le travail des quadriceps</em></li>
+                                <li><strong>Fentes marchées</strong>: 3 séries de 12 pas<br>
+                                <em>Mon exercice préféré pour l'équilibre et la coordination</em></li>
+                                <li><strong>Leg curl</strong>: 3 séries de 12 reps<br>
+                                <em>Je termine par cet isolation pour les ischios</em></li>
+                            </ul>
+                            <h4>Ma philosophie</h4>
+                            <p>Les séances jambes sont les plus exigeantes mais aussi les plus gratifiantes. Chaque squat réussi est une victoire personnelle ! Cette discipline m'a appris à repousser mes limites mentales autant que physiques.</p>
+                            <h4>Conseil du coach</h4>
+                            <p>Ne négligez jamais l'échauffement et variez les angles d'exécution. La progression vient avec la constance !</p>
+                        </div>
+                    `
+                }
+            };
+
+            // Ouvrir la modale
+            moreBtns.forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const programId = this.getAttribute('data-program');
+                    const program = programsData[programId];
+
+                    modalTitle.textContent = program.title;
+                    modalContent.innerHTML = program.content;
+
+                    modal.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+
+                    // Scroll vers le bas pour voir la modale
+                    window.scrollTo({
+                        top: document.body.scrollHeight,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Fermer la modale
+            closeBtn.addEventListener('click', function () {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+
+            // Fermer en cliquant en dehors de la modale
+            modal.addEventListener('click', function (e) {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
