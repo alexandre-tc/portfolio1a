@@ -32,7 +32,7 @@ body.loaded {
     position: fixed;
     top: 2rem;
     left: 2rem;
-    color: var(--drak);
+    color: var(--dark);
     font-size: 1.5rem;
     text-decoration: none;
     z-index: 1000;
@@ -97,6 +97,10 @@ section {
 }
 
 .album-card {
+    display: block;
+    flex: 1 1 220px;
+    width: min(220px, 100%);
+    max-width: 220px;
     position: relative;
     border-radius: 10px;
     overflow: hidden;
@@ -200,7 +204,13 @@ section {
 /* Responsive */
 @media (max-width: 768px) {
     .albums-container {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 1.2rem;
+    }
+
+    .album-card {
+        flex-basis: 160px;
+        width: min(180px, calc(50vw - 3rem));
+        max-width: 180px;
     }
 
     .listen-list ul {
@@ -209,5 +219,13 @@ section {
 
     .section-title {
         font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .album-card {
+        flex-basis: min(260px, calc(100vw - 4rem));
+        width: min(260px, calc(100vw - 4rem));
+        max-width: 260px;
     }
 }

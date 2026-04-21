@@ -26,6 +26,7 @@
                 <a href="accueil.html" title="Accueil">Accueil</a>
                 <a href="aPropos.html" title="À propos de moi">À propos de moi</a>
                 <a href="projets.html" class="active" title="Mes projets">Mes projets</a>
+                <a href="experience.html" title="Mes expériences professionnelles">Expériences</a>
                 <a href="contact.html" title="Me contacter">Me contacter</a>
                 <a href="cv.html" title="Mon CV">Mon CV</a>
             </div>
@@ -39,7 +40,7 @@
                 <div class="projects-carousel">
                     <div class="project-card">
                         <h3>Application en C#</h3>
-                        <p class="project-excerpt">Une application reprenant le jeu "Kingdomino".</p>
+                        <p class="project-excerpt">Une application reprenant le jeu "Memory".</p>
                         <button class="expand-button" data-modal="modal-1">Voir plus</button>
                     </div>
 
@@ -51,7 +52,7 @@
 
                     <div class="project-card">
                         <h3>Site web d'un artiste</h3>
-                        <p class="project-excerpt">Un site web avec les informations et les actualités de l'artiste.</p>
+                        <p class="project-excerpt">Un site web avec quiz musical dédié à l'artiste Leith.</p>
                         <button class="expand-button" data-modal="modal-3">Voir plus</button>
                     </div>
 
@@ -65,11 +66,11 @@
                 <button class="carousel-button next" aria-label="Projet suivant">&#9654;</button>
             </div>
 
-            <div class="contact-section">
-                <h2>Me contacter</h2>
-                <div class="card-redirect" onclick="window.location.href='contact.html'">
-                    <h3>Consulter mon contact</h3>
-                    <p>Cliquez ici pour accéder à mes coordonnées.</p>
+            <div class="page-redirect">
+                <h2>Mes expériences professionnelles</h2>
+                <div class="card-redirect" onclick="window.location.href='experience.html'">
+                    <h3>Consulter mes expériences</h3>
+                    <p>Cliquez ici pour découvrir mon parcours professionnel.</p>
                 </div>
             </div>
         </section>
@@ -93,13 +94,12 @@
             <p>J'ai participé au développement d'une application graphique en C#. <br><br>
                 Ce projet réunissait les compétences « Développement » et
                 « Gestion d'un projet ». Il consistait à recréer numériquement
-                le jeu de plateau et de stratégie « Kingdomino », avec une application
+                le jeu de plateau et de stratégie « Memory », avec une application
                 simple et intuitive. Lors de sa création, je me suis concentré sur la
-                réalisation des persona et des user stories dans un premier
-                temps, puis de la gestion des dominos et de la sauvegarde des
+                réalisation du contexte et des vues, puis de la gestion des cartes et de la sauvegarde des
                 scores lors de la programmation du jeu. <br><br>
-                Ce projet m'a permis d'apprendre le C#, un langage que je n'avais jamais pratiqué, mais
-                il m'a aussi permis d'approfondir mes capacités de travail en groupe.</p>
+                Ce projet m'a permis d'appronfondir mes connaissances en C#, mais
+                aussi permis de développer mes capacités de travail en groupe.</p>
         </div>
     </div>
 
@@ -267,28 +267,50 @@
             // GESTION DU CARROUSEL
             // ===============================================
             const carousel = document.querySelector('.projects-carousel');
+            const carouselContainer = document.querySelector('.carousel-container');
             const cards = document.querySelectorAll('.project-card');
             const prevBtn = document.querySelector('.carousel-button.prev');
             const nextBtn = document.querySelector('.carousel-button.next');
             let currentIndex = 0;
 
+            function getGapSize() {
+                if (!carousel) return 0;
+                const carouselStyles = window.getComputedStyle(carousel);
+                return parseFloat(carouselStyles.gap || carouselStyles.columnGap || '0');
+            }
+
+            function getCardStep() {
+                if (!cards.length) return 0;
+                return cards[0].getBoundingClientRect().width + getGapSize();
+            }
+
             function getVisibleCards() {
-                if (!cards.length) return 1;
-                const containerWidth = document.querySelector('.carousel-container').offsetWidth;
-                const cardWidth = cards[0].offsetWidth + 30;
-                return Math.max(1, Math.floor(containerWidth / cardWidth));
+                if (!cards.length || !carouselContainer) return 1;
+
+                const containerStyles = window.getComputedStyle(carouselContainer);
+                const innerWidth = carouselContainer.clientWidth
+                    - parseFloat(containerStyles.paddingLeft || '0')
+                    - parseFloat(containerStyles.paddingRight || '0');
+                const cardStep = getCardStep();
+
+                if (cardStep <= 0) return 1;
+
+                return Math.max(1, Math.floor((innerWidth + getGapSize()) / cardStep));
+            }
+
+            function getMaxIndex() {
+                return Math.max(0, cards.length - getVisibleCards());
             }
 
             function updateCarousel() {
                 if (!carousel || cards.length === 0) return;
 
-                const cardWidth = cards[0].offsetWidth + 30;
-                const translateX = currentIndex * cardWidth;
+                currentIndex = Math.min(currentIndex, getMaxIndex());
+
+                const translateX = currentIndex * getCardStep();
                 carousel.style.transform = `translateX(-${translateX}px)`;
 
-                // Gestion de la visibilité des boutons
-                const visibleCards = getVisibleCards();
-                const maxIndex = Math.max(0, cards.length - visibleCards);
+                const maxIndex = getMaxIndex();
 
                 if (prevBtn) {
                     prevBtn.style.display = currentIndex === 0 ? 'none' : 'flex';
@@ -302,8 +324,7 @@
             // Navigation carrousel
             if (nextBtn) {
                 nextBtn.addEventListener('click', () => {
-                    const visibleCards = getVisibleCards();
-                    const maxIndex = Math.max(0, cards.length - visibleCards);
+                    const maxIndex = getMaxIndex();
                     if (currentIndex < maxIndex) {
                         currentIndex++;
                         updateCarousel();
