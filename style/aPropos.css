@@ -255,18 +255,21 @@ h2::after {
     display: flex;
     gap: 40px;
     align-items: center;
+    justify-content: center;
     margin-bottom: 80px;
-    width: 100%;
+    max-width: 860px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .text-content1 {
-    flex: 1;
+    flex: 0 1 480px;
     padding: 20px;
     background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(5px);
     border-radius: 8px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    text-align: justify;
+    text-align: center;
     transition: transform 0.3s;
     word-wrap: break-word;
 }
@@ -276,17 +279,17 @@ h2::after {
 }
 
 .image-content1 {
-    flex: 1;
+    flex: 0 0 auto;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .reduced-image {
-    width: 100%;
-    max-width: 300px;
-    height: auto;
-    border-radius: 8px;
+    width: 220px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 50%;
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 

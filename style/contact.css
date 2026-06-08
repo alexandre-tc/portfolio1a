@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Manrope:wght@400;600&family=Poiret+One&display=swap');
 
-/* Reset et prévention scrollbar horizontale */
+/* =============================================== */
+/* RESET */
+/* =============================================== */
 * {
     margin: 0;
     padding: 0;
@@ -12,6 +14,9 @@ html {
     width: 100%;
 }
 
+/* =============================================== */
+/* BODY & ANIMATION DE CHARGEMENT */
+/* =============================================== */
 body {
     font-family: 'Manrope', sans-serif;
     background-color: #f8f5f2;
@@ -20,10 +25,8 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
     width: 100%;
-    position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 }
 
 body::before {
@@ -45,18 +48,20 @@ body.loaded::before {
     filter: blur(0);
 }
 
-.container, header, footer {
+header,
+footer {
     opacity: 0;
     transition: opacity 1s ease-out;
 }
 
-body.loaded .container,
 body.loaded header,
 body.loaded footer {
     opacity: 1;
 }
 
-/* Header Styles */
+/* =============================================== */
+/* HEADER & NAV */
+/* =============================================== */
 header {
     top: 0;
     width: 100%;
@@ -85,7 +90,7 @@ nav {
 }
 
 nav a {
-    color: #333 !important;
+    color: #333;
     font-family: 'Poiret One', cursive;
     font-size: clamp(1.2rem, 2.5vw, 1.5rem);
     font-weight: bold;
@@ -95,10 +100,6 @@ nav a {
     padding: 0.5rem 0;
     position: relative;
     transition: all 0.3s ease;
-}
-
-nav a:hover {
-    background: rgba(255, 255, 255, 0.1);
 }
 
 nav a::after {
@@ -120,7 +121,9 @@ nav a.active {
     font-weight: bold;
 }
 
-/* Burger Menu Styles */
+/* =============================================== */
+/* BURGER MENU */
+/* =============================================== */
 .burger-menu {
     display: none;
     z-index: 101;
@@ -146,17 +149,9 @@ nav a.active {
     transition: .25s ease-in-out;
 }
 
-.burger-icon span:nth-child(1) {
-    top: 0;
-}
-
-.burger-icon span:nth-child(2) {
-    top: 8px;
-}
-
-.burger-icon span:nth-child(3) {
-    top: 16px;
-}
+.burger-icon span:nth-child(1) { top: 0; }
+.burger-icon span:nth-child(2) { top: 8px; }
+.burger-icon span:nth-child(3) { top: 16px; }
 
 .burger-icon.active span:nth-child(1) {
     top: 8px;
@@ -173,211 +168,184 @@ nav a.active {
     transform: rotate(-135deg);
 }
 
-/* Container */
-.container {
-    max-width: 800px;
-    width: 100%;
-    margin: 20px auto;
-    padding: 30px;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(5px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
+/* =============================================== */
+/* PAGE WRAPPER */
+/* =============================================== */
+.page-wrapper {
     flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem 1rem;
 }
 
-.content-wrapper {
+/* =============================================== */
+/* CARTE DE VISITE */
+/* =============================================== */
+.business-card {
+    width: 100%;
+    max-width: 460px;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.12),
+        0 4px 16px rgba(0, 0, 0, 0.07);
+    background: #ffffff;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+body.loaded .business-card {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- En-tête gris --- */
+.card-header {
+    background-color: grey;
+    padding: 2.5rem 2rem 2rem;
+    text-align: center;
+}
+
+.card-avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid white;
+    margin-bottom: 1.1rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.3rem, 4vw, 1.7rem);
+    color: #ffffff;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    line-height: 1.2;
+}
+
+.card-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.78rem;
+    color: #efefef;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-weight: 600;
+}
+
+/* --- Séparateur --- */
+.card-divider {
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #333, transparent);
+}
+
+/* --- Corps de la carte --- */
+.card-body {
+    padding: 1.8rem 2rem 2rem;
+    background: #ffffff;
+}
+
+/* --- Lignes de contact --- */
+.contact-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid #efefef;
+}
+
+.contact-row:last-of-type {
+    border-bottom: none;
+    margin-bottom: 0.5rem;
+}
+
+.contact-icon {
+    width: 40px;
+    height: 40px;
+    background: #f8f5f2;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: grey;
+    transition: background 0.25s;
+}
+
+.contact-row:hover .contact-icon {
+    background: #efefef;
+}
+
+.contact-info {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    min-height: 60vh; /* Hauteur minimale pour centrer le contenu */
+    gap: 0.15rem;
+    min-width: 0;
 }
 
-h1, h2 {
-    color: black;
-    text-align: center;
-    font-family: 'Playfair Display', serif;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    word-wrap: break-word;
-}
-
-h1 {
-    margin-bottom: 30px;
-    font-size: clamp(1.8rem, 4vw, 2.5rem);
-}
-
-.form-group {
-    margin-bottom: 20px;
-    width: 100%;
-}
-
-label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: #797979;
-    font-size: clamp(0.9rem, 2vw, 1rem);
-}
-
-input, select, textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-    font-size: clamp(0.9rem, 2vw, 1rem);
-    transition: all 0.3s;
-    background: rgba(255, 255, 255, 0.7);
-}
-
-input:focus, select:focus, textarea:focus {
-    border-color: #9C7C3F;
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(156, 124, 63, 0.2);
-}
-
-textarea {
-    resize: vertical;
-    min-height: 120px;
-}
-
-button {
-    background-color: #9C7C3F;
-    color: white;
-    border: none;
-    padding: 15px 20px;
-    font-size: clamp(0.9rem, 2vw, 1rem);
-    border-radius: 4px;
-    cursor: pointer;
-    width: 100%;
-    transition: all 0.3s;
-    font-weight: 600;
+.contact-label {
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.68rem;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.12em;
+    color: #aaa;
+    font-weight: 600;
 }
 
-button:hover {
-    background-color: #B38B6D;
-    transform: translateY(-2px);
-}
-
-.flex-container {
-    display: flex;
-    gap: 20px;
-    width: 100%;
-}
-
-.flex-container .form-group {
-    flex: 1;
-}
-
-.agency-info {
-    background-color: grey;
-    color: white;
-    padding: 25px;
-    border-radius: 8px;
-    margin-top: 40px;
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    width: 100%;
-}
-
-.agency-info h2 {
-    color: white;
-    margin-top: 0;
-    font-size: clamp(1.4rem, 3vw, 1.8rem);
+.contact-value {
     font-family: 'Manrope', sans-serif;
-}
-
-.agency-info p {
-    margin: 10px 0;
-    text-align: center;
-    font-size: clamp(0.9rem, 2vw, 1rem);
-    word-wrap: break-word;
-}
-
-.agency-info a {
-    color: white;
+    font-size: 0.92rem;
+    color: #333;
+    font-weight: 600;
     text-decoration: none;
-    transition: opacity 0.3s;
     word-break: break-word;
+    transition: color 0.25s;
 }
 
-.cv {
-    margin-top: 20px;
-}
-
-.cv a {
-    color: white;
-    text-decoration: none;
-    transition: opacity 0.3s;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-}
-
-.agency-info a:hover {
-    opacity: 0.8;
-}
-
-.cv-card {
-    width: 100%;
-    max-width: 300px;
-    padding: 25px;
-    background: grey;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    text-align: center;
-    font-family: 'Manrope', sans-serif;
-    margin: 20px auto;
-    transition: transform 0.3s;
-}
-
-.cv-card h3 {
-    color: white;
-    font-size: clamp(1.2rem, 2.5vw, 1.5rem);
-}
-
-.cv-card p {
-    color: white;
-    font-size: clamp(0.9rem, 2vw, 1rem);
-}
-
-.cv-card a { 
-    color: white;
-}
-
-.cv-icon {
-    font-size: clamp(40px, 8vw, 50px);
-    margin-bottom: 15px;
-    color: #e74c3c;
-}
-
-.download-btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background: rgb(146, 144, 144);
+a.contact-value:hover {
     color: grey;
+}
+
+/* --- Bouton CV --- */
+.card-cta {
+    display: block;
+    text-align: center;
+    margin-top: 1.6rem;
+    padding: 0.9rem 1.5rem;
+    background: grey;
+    color: #ffffff;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
     text-decoration: none;
-    border-radius: 5px;
-    margin-top: 15px;
-    transition: background 0.3s;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
 }
 
-.download-btn:hover {
-    background: darkgray;
+.card-cta:hover {
+    background: #555;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* Footer */
+/* =============================================== */
+/* FOOTER */
+/* =============================================== */
 footer {
     text-align: center;
     padding: 20px;
     background-color: grey;
     color: white;
     font-size: clamp(0.8rem, 2vw, 1rem);
-    backdrop-filter: blur(5px);
     width: 100%;
-    margin-top: auto;
     flex-shrink: 0;
 }
 
@@ -388,33 +356,8 @@ footer p {
 }
 
 /* =============================================== */
-/* RESPONSIVE OPTIMISÉ */
+/* RESPONSIVE */
 /* =============================================== */
-
-/* Ajout d'un media query pour les très grands écrans */
-@media (min-width: 1400px) {
-    .container {
-        margin: 40px auto; /* Marge légèrement plus grande sur très grands écrans */
-        max-width: 900px; /* Légère augmentation de la largeur max */
-    }
-}
-
-/* Ajustement pour les écrans moyens */
-@media (min-width: 1025px) and (max-width: 1399px) {
-    .container {
-        margin: 30px auto;
-    }
-}
-
-/* Tablettes */
-@media (max-width: 1024px) {
-    .container {
-        padding: 25px;
-        margin: 30px auto;
-    }
-}
-
-/* Tablettes et smartphones larges */
 @media (max-width: 768px) {
     body {
         padding-bottom: 0;
@@ -426,7 +369,6 @@ footer p {
         backdrop-filter: blur(15px);
     }
 
-    /* Burger menu visible */
     .burger-menu {
         display: flex;
         align-items: center;
@@ -439,7 +381,6 @@ footer p {
         height: 28px;
     }
 
-    /* Navigation mobile */
     .nav-links {
         position: fixed;
         top: 0;
@@ -476,132 +417,70 @@ footer p {
         background: rgba(51, 51, 51, 0.1);
     }
 
-    /* Contenu principal */
-    .container {
-        width: 90%;
-        max-width: 100%;
-        margin: 20px auto;
-        padding: 1.5rem;
+    .page-wrapper {
+        padding: 1.5rem 1rem;
     }
 
-    h1 {
-        margin-bottom: 1.5rem;
+    .business-card {
+        border-radius: 14px;
     }
 
-    .form-group {
-        margin-bottom: 1.2rem;
+    .card-header {
+        padding: 2rem 1.5rem 1.6rem;
     }
 
-    input, select, textarea {
-        padding: 0.8rem;
+    .card-body {
+        padding: 1.4rem 1.5rem 1.6rem;
     }
 
-    button {
-        padding: 1rem;
-    }
-
-    .flex-container {
-        flex-direction: column;
-        gap: 1.2rem;
-    }
-
-    .agency-info {
-        padding: 1.5rem;
-        margin-top: 2rem;
-    }
-
-    .cv-card {
-        width: 90%;
-        max-width: 300px;
-        margin: 1.5rem auto;
-    }
-
-    footer {
-        position: relative;
-        margin-top: 40px;
+    .card-avatar {
+        width: 80px;
+        height: 80px;
     }
 }
 
-/* Smartphones */
 @media (max-width: 480px) {
-    .container {
-        width: 95%;
-        padding: 1.2rem;
+    .card-header {
+        padding: 1.8rem 1.2rem 1.4rem;
     }
 
-    .agency-info {
-        padding: 1.2rem;
+    .card-body {
+        padding: 1.2rem 1.2rem 1.4rem;
     }
 
-    .nav-links {
-        padding: 4rem 0 2rem;
-    }
-
-    nav a {
-        width: 90%;
-        padding: 1rem 1.5rem;
+    .contact-icon {
+        width: 36px;
+        height: 36px;
     }
 }
 
-/* Très petits smartphones */
-@media (max-width: 360px) {
-    .container {
-        padding: 1rem;
-    }
-
-    .agency-info {
-        padding: 1rem;
-    }
-
-    nav a {
-        padding: 0.8rem 1.2rem;
-    }
-}
-
-/* Mode paysage pour smartphones */
+/* Mode paysage smartphone */
 @media (max-width: 768px) and (orientation: landscape) {
     .nav-links {
         padding: 3rem 0 1rem;
         gap: 0.3rem;
     }
-    
+
     .nav-links a {
         padding: 0.8rem 1.5rem;
     }
+
+    .page-wrapper {
+        padding: 1rem;
+    }
 }
 
-/* Amélioration du touch sur mobile */
+/* Touch devices */
 @media (hover: none) and (pointer: coarse) {
-    button:hover {
+    .card-cta:hover {
         transform: none;
     }
-    
-    button:active {
+
+    .card-cta:active {
         transform: scale(0.98);
     }
-    
+
     nav a:active {
         background: rgba(51, 51, 51, 0.15);
-    }
-    
-    .cv-card:hover {
-        transform: none;
-    }
-    
-    .cv-card:active {
-        transform: scale(0.98);
-    }
-}
-
-/* Correction pour éviter le débordement */
-@media (max-width: 768px) {
-    * {
-        max-width: 100%;
-    }
-    
-    .container,
-    .agency-info,
-    .cv-card {
-        overflow-x: hidden;
     }
 }

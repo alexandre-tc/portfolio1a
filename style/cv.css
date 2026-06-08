@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Manrope:wght@400;600&family=Poiret+One&display=swap');
 
-/* Reset et prévention scrollbar horizontale */
+/* =============================================== */
+/* RESET */
+/* =============================================== */
 * {
     margin: 0;
     padding: 0;
@@ -12,6 +14,9 @@ html {
     width: 100%;
 }
 
+/* =============================================== */
+/* BODY & ANIMATION DE CHARGEMENT */
+/* =============================================== */
 body {
     font-family: 'Manrope', sans-serif;
     background-color: #f8f5f2;
@@ -20,10 +25,8 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
     width: 100%;
-    position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 }
 
 body::before {
@@ -45,20 +48,21 @@ body.loaded::before {
     filter: blur(0);
 }
 
-.container, header, footer {
+header,
+footer {
     opacity: 0;
     transition: opacity 1s ease-out;
 }
 
-body.loaded .container,
 body.loaded header,
 body.loaded footer {
     opacity: 1;
 }
 
-/* Header Styles */
+/* =============================================== */
+/* HEADER & NAV */
+/* =============================================== */
 header {
-    top: 0;
     width: 100%;
     padding: 1rem;
     backdrop-filter: blur(10px);
@@ -97,10 +101,6 @@ nav a {
     transition: all 0.3s ease;
 }
 
-nav a:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
 nav a::after {
     content: '';
     position: absolute;
@@ -120,7 +120,9 @@ nav a.active {
     font-weight: bold;
 }
 
-/* Burger Menu Styles */
+/* =============================================== */
+/* BURGER MENU */
+/* =============================================== */
 .burger-menu {
     display: none;
     z-index: 101;
@@ -146,17 +148,9 @@ nav a.active {
     transition: .25s ease-in-out;
 }
 
-.burger-icon span:nth-child(1) {
-    top: 0;
-}
-
-.burger-icon span:nth-child(2) {
-    top: 8px;
-}
-
-.burger-icon span:nth-child(3) {
-    top: 16px;
-}
+.burger-icon span:nth-child(1) { top: 0; }
+.burger-icon span:nth-child(2) { top: 8px; }
+.burger-icon span:nth-child(3) { top: 16px; }
 
 .burger-icon.active span:nth-child(1) {
     top: 8px;
@@ -173,108 +167,203 @@ nav a.active {
     transform: rotate(-135deg);
 }
 
-/* Container - CORRECTION */
-.container {
-    max-width: 800px;
-    width: 100%;
-    margin: 20px auto;
-    padding: 30px;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(5px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
+/* =============================================== */
+/* PAGE WRAPPER */
+/* =============================================== */
+.page-wrapper {
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 50vh;
+    padding: 2.5rem 1rem;
 }
 
-h1, h2 {
-    color: black;
-    text-align: center;
-    font-family: 'Playfair Display', serif;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    word-wrap: break-word;
-}
-
-h1 {
-    margin-bottom: 30px;
-    font-size: clamp(1.8rem, 4vw, 2.5rem);
-}
-
-/* CV Card - AMÉLIORATION */
-.cv-card {
+/* =============================================== */
+/* DOCUMENT CV */
+/* =============================================== */
+.cv-document {
+    position: relative;
     width: 100%;
-    max-width: 100%;
-    padding: 40px 30px;
+    max-width: 380px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #ffffff;
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.12),
+        0 4px 14px rgba(0, 0, 0, 0.07);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+body.loaded .cv-document {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Coin replié (décoration) --- */
+.cv-document::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(
+        225deg,
+        #f8f5f2 45%,
+        rgba(0, 0, 0, 0.1) 50%,
+        #ffffff 55%
+    );
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* --- Ligne scanner (animation unique au chargement) --- */
+.scanner-line {
+    position: absolute;
+    top: -4px;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, transparent 0%, rgba(120,120,120,0.5) 50%, transparent 100%);
+    z-index: 5;
+    animation: scan 1.8s ease-in-out 0.6s 1 forwards;
+    opacity: 0;
+}
+
+@keyframes scan {
+    0%   { top: 0;    opacity: 1; }
+    85%  { opacity: 0.7; }
+    100% { top: 100%; opacity: 0; }
+}
+
+/* --- En-tête gris --- */
+.doc-header {
     background: grey;
-    border-radius: 15px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    padding: 2rem 1.8rem 1.6rem;
     text-align: center;
+}
+
+/* Mini-lignes imitant du texte de document */
+.doc-lines {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin-bottom: 1.2rem;
+}
+
+.doc-lines span {
+    display: block;
+    height: 5px;
+    border-radius: 99px;
+    background: rgba(255, 255, 255, 0.35);
+}
+
+.doc-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.3rem, 4vw, 1.6rem);
+    color: #ffffff;
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+    letter-spacing: 0.01em;
+}
+
+.doc-name {
     font-family: 'Manrope', sans-serif;
-    margin: 0;
-    transition: transform 0.3s, box-shadow 0.3s;
-    text-decoration: none;
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.75);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-weight: 600;
 }
 
-.cv-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 35px rgba(0,0,0,0.2);
+/* --- Corps du document --- */
+.doc-body {
+    padding: 1.6rem 1.8rem 1.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
 }
 
-.cv-card h3 {
-    color: white;
-    font-size: clamp(1.2rem, 3vw, 1.8rem);
-    margin-bottom: 15px;
-    font-family: 'Poppins', sans-serif;
+.doc-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #efefef;
 }
 
-.cv-card p {
-    color: white;
-    font-size: clamp(1rem, 2.5vw, 1.2rem);
-    margin-bottom: 25px;
-    opacity: 0.9;
+.doc-meta:last-of-type {
+    border-bottom: none;
+    margin-bottom: 1.4rem;
 }
 
-.cv-icon {
-    font-size: clamp(50px, 10vw, 70px);
-    margin-bottom: 25px;
-    color: #fff;
-    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+.meta-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #aaa;
+    font-weight: 600;
 }
 
+.meta-value {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: #333;
+}
+
+/* --- Bouton téléchargement --- */
 .download-btn {
-    display: inline-block;
-    padding: 15px 30px;
-    background: #A1A1A1;
-    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 0.9rem 1.4rem;
+    background: grey;
+    color: #ffffff;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 600;
+    font-size: 0.88rem;
     text-decoration: none;
     border-radius: 8px;
-    margin-top: 15px;
-    transition: all 0.3s;
-    font-size: clamp(1rem, 2.5vw, 1.1rem);
-    font-weight: 600;
-    border: 2px solid transparent;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
 }
 
 .download-btn:hover {
-    background: #8F8F8F;
+    background: #555;
     transform: translateY(-2px);
-    border-color: rgba(255,255,255,0.3);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* Footer */
+/* Flèche de téléchargement qui rebondit au survol */
+.download-arrow {
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+.download-btn:hover .download-arrow {
+    animation: bounce-arrow 0.6s ease infinite alternate;
+}
+
+@keyframes bounce-arrow {
+    from { transform: translateY(0); }
+    to   { transform: translateY(4px); }
+}
+
+/* =============================================== */
+/* FOOTER */
+/* =============================================== */
 footer {
     text-align: center;
     padding: 20px;
     background-color: grey;
     color: white;
     font-size: clamp(0.8rem, 2vw, 1rem);
-    backdrop-filter: blur(5px);
     width: 100%;
-    margin-top: auto;
     flex-shrink: 0;
 }
 
@@ -285,54 +374,15 @@ footer p {
 }
 
 /* =============================================== */
-/* RESPONSIVE OPTIMISÉ */
+/* RESPONSIVE */
 /* =============================================== */
-
-/* Très grands écrans */
-@media (min-width: 1400px) {
-    .container {
-        margin: 60px auto;
-        max-width: 900px;
-        min-height: 40vh;
-    }
-    
-    .cv-card {
-        max-width: 450px;
-        padding: 50px 40px;
-    }
-}
-
-/* Écrans moyens */
-@media (min-width: 1025px) and (max-width: 1399px) {
-    .container {
-        margin: 40px auto;
-        min-height: 45vh;
-    }
-}
-
-/* Tablettes */
-@media (max-width: 1024px) {
-    .container {
-        padding: 25px;
-        margin: 30px auto;
-        min-height: 50vh;
-    }
-
-}
-
-/* Tablettes et smartphones larges */
 @media (max-width: 768px) {
-    body {
-        padding-bottom: 0;
-    }
-
     header {
         padding: 1rem;
         background: rgba(248, 245, 242, 0.95);
         backdrop-filter: blur(15px);
     }
 
-    /* Burger menu visible */
     .burger-menu {
         display: flex;
         align-items: center;
@@ -345,7 +395,6 @@ footer p {
         height: 28px;
     }
 
-    /* Navigation mobile */
     .nav-links {
         position: fixed;
         top: 0;
@@ -382,107 +431,49 @@ footer p {
         background: rgba(51, 51, 51, 0.1);
     }
 
-    /* Contenu principal */
-    .container {
-        width: 90%;
-        max-width: 100%;
-        margin: 20px auto;
-        padding: 2rem;
-        min-height: 60vh;
-    }
-
-    .cv-card {
-        width: 100%;
-        padding: 2.5rem 2rem;
-    }
-
-    footer {
-        position: relative;
-        margin-top: 40px;
-    }
-}
-
-/* Smartphones */
-@media (max-width: 480px) {
-    .container {
-        width: 95%;
-        padding: 1.5rem;
-        min-height: 65vh;
-    }
-
-    .cv-card {
-        padding: 2rem 1.5rem;
-    }
-
-    .nav-links {
-        padding: 4rem 0 2rem;
-    }
-
-    nav a {
-        width: 90%;
-        padding: 1rem 1.5rem;
-    }
-}
-
-/* Très petits smartphones */
-@media (max-width: 360px) {
-    .container {
-        padding: 1rem;
-    }
-
-    .cv-card {
+    .page-wrapper {
         padding: 1.5rem 1rem;
     }
+}
 
-    nav a {
-        padding: 0.8rem 1.2rem;
+@media (max-width: 480px) {
+    .doc-header {
+        padding: 1.6rem 1.4rem 1.3rem;
+    }
+
+    .doc-body {
+        padding: 1.3rem 1.4rem 1.5rem;
     }
 }
 
-/* Mode paysage pour smartphones */
+/* Mode paysage smartphone */
 @media (max-width: 768px) and (orientation: landscape) {
     .nav-links {
         padding: 3rem 0 1rem;
         gap: 0.3rem;
     }
-    
+
     .nav-links a {
         padding: 0.8rem 1.5rem;
     }
+
+    .page-wrapper {
+        padding: 1rem;
+    }
 }
 
-/* Amélioration du touch sur mobile */
+/* Touch devices */
 @media (hover: none) and (pointer: coarse) {
-    .cv-card:hover {
+    .download-btn:hover {
         transform: none;
     }
-    
-    .cv-card:active {
-        transform: translateY(-3px);
-    }
-    
-    .download-btn:hover {
-        background: #9C7C3F;
-    }
-    
+
     .download-btn:active {
-        background: #B38B6D;
-        transform: translateY(-2px);
+        transform: scale(0.98);
+        background: #555;
     }
-    
+
     nav a:active {
         background: rgba(51, 51, 51, 0.15);
-    }
-}
-
-/* Correction pour éviter le débordement */
-@media (max-width: 768px) {
-    * {
-        max-width: 100%;
-    }
-    
-    .container,
-    .cv-card {
-        overflow-x: hidden;
     }
 }
