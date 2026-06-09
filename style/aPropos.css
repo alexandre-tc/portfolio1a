@@ -302,6 +302,22 @@ h2::after {
     width: 100%;
 }
 
+#passions {
+    scroll-margin-top: 30px;
+}
+
+.passions-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+.passions-grid .value-card {
+    flex: 0 1 calc((100% - 60px) / 3);
+    min-width: 280px;
+}
+
 .value-card {
     background: white;
     padding: 30px;
